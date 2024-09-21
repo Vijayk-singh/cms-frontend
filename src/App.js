@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
@@ -11,13 +11,14 @@ import { AuthContext } from './context/AuthContext';
 import './App.css'; // Your global CSS
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Default to closed sidebar
   const [isLoginMode, setIsLoginMode] = useState(true); // Toggle between login and register
   const { user } = useContext(AuthContext); // Get user from AuthContext
-setIsSidebarOpen(false)
-  // const toggleSidebar = () => {
-  //   setIsSidebarOpen(!isSidebarOpen);
-  // };
+
+  useEffect(() => {
+    // Set sidebar to closed when the component mounts
+    setIsSidebarOpen(false);
+  }, []);
 
   // Function to toggle between Login and Register
   const toggleAuthMode = () => {
@@ -36,31 +37,22 @@ setIsSidebarOpen(false)
               {isLoginMode ? 'Switch to Register' : 'Switch to Login'}
             </button>
             {isLoginMode ? <Login /> : <Register />}
-
-            {/* Toggle button for switching between login and register */}
-           
           </div>
-        ) :
-         (
+        ) : (
           <div className="content-layout">
-            {/* <button className="toggle-sidebar-btn" onClick={toggleSidebar}>
-              {isSidebarOpen ? 'Close' : 'Open'} Sidebar
-            </button> */}
-
             <Sidebar isOpen={isSidebarOpen} />
-
             <div className={`main-content ${isSidebarOpen ? 'shrink' : ''}`}>
               <Routes>
                 <Route path="/articles" element={<ArticleList />} />
-               {(user.role==="admin" || user.role==="editor" || user.role==="writer")?<Route path="/add-article" element={<AddArticle />} />:""} 
-               {user.role==="admin"? <Route path="/users" element={<Users />} />:""}
-            
+                {(user.role === "admin" || user.role === "editor" || user.role === "writer") && (
+                  <Route path="/add-article" element={<AddArticle />} />
+                )}
+                {user.role === "admin" && <Route path="/users" element={<Users />} />}
                 <Route path="*" element={<Navigate to="/articles" />} />
               </Routes>
             </div>
           </div>
         )}
-          
       </div>
     </Router>
   );
