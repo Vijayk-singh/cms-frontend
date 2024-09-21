@@ -11,10 +11,10 @@ import { AuthContext } from './context/AuthContext';
 import './App.css'; // Your global CSS
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState();
   const [isLoginMode, setIsLoginMode] = useState(true); // Toggle between login and register
   const { user } = useContext(AuthContext); // Get user from AuthContext
-
+setIsSidebarOpen(false)
   // const toggleSidebar = () => {
   //   setIsSidebarOpen(!isSidebarOpen);
   // };
