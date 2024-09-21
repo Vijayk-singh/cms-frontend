@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const AuthContext = createContext();
 
@@ -43,8 +44,10 @@ const AuthProvider = ({ children }) => {
 
       setUser(userRes.data); // Store complete user data
       localStorage.setItem('token', token); // Store token in localStorage
+      toast.success('Logged in!')
     } catch (error) {
       console.error('Login failed', error);
+      toast.error(error)
     }
   };
 

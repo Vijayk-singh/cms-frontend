@@ -12,7 +12,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, { name, email, password });
+      await axios.post(`https://cms-backend-production-da64.up.railway.app/api/users/register`, { name, email, password });
       toast.success('Registration successful! Please log in.'); // Show success notification
     } catch (error) {
       toast.error('Registration failed.'); // Show error notification

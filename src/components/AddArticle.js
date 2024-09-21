@@ -27,6 +27,7 @@ const AddArticle = () => {
       toast.success('Article added successfully!');
       setTitle('');
       setContent('');
+      setMedia('')
     } catch (error) {
       toast.error('Failed to add article. Please try again.');
       console.error('Error adding article', error);
