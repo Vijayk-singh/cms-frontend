@@ -15,9 +15,9 @@ function App() {
   const [isLoginMode, setIsLoginMode] = useState(true); // Toggle between login and register
   const { user } = useContext(AuthContext); // Get user from AuthContext
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
 
   // Function to toggle between Login and Register
   const toggleAuthMode = () => {
@@ -52,8 +52,8 @@ function App() {
             <div className={`main-content ${isSidebarOpen ? 'shrink' : ''}`}>
               <Routes>
                 <Route path="/articles" element={<ArticleList />} />
-               {(user.role=="admin" || user.role=="editor" || user.role=="writer")?<Route path="/add-article" element={<AddArticle />} />:""} 
-               {user.role=="admin"? <Route path="/users" element={<Users />} />:""}
+               {(user.role==="admin" || user.role==="editor" || user.role==="writer")?<Route path="/add-article" element={<AddArticle />} />:""} 
+               {user.role==="admin"? <Route path="/users" element={<Users />} />:""}
             
                 <Route path="*" element={<Navigate to="/articles" />} />
               </Routes>
